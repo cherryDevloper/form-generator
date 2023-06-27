@@ -1,11 +1,11 @@
-import HomePage from './pages/HomePage';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import FormGenratorPage from './pages/FormGenratorPage';
 function App() {
   return (
-    <ChakraProvider>
-      <Router>
+    <Router>
+      <ChakraProvider>
         <Routes>
           <Route
             path="/"
@@ -16,9 +16,8 @@ function App() {
             element={<FormGenratorPage />}
           />
         </Routes>
-      </Router>
-      <HomePage />
-    </ChakraProvider>
+      </ChakraProvider>
+    </Router>
   );
 }
 
