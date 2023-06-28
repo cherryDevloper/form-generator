@@ -22,18 +22,20 @@ interface Page {
   elements: Element[];
 }
 const FormBuilder: React.FC = () => {
-  const [pages, setPages] = useState<Page[]>([{ name: '', elements: [] }]);
+  const [page, setPage] = useState<Page>({ name: '', elements: [] });
 
-  const addElement = (pageIndex: number, element: any) => {
-    const updatedPages = [...pages];
-    updatedPages[pageIndex].elements.push(element);
-    setPages(updatedPages);
+  const addElement = () => {
+    setPage((prevPage) => ({
+      ...prevPage,
+      elements: [...prevPage.elements, { name: '', type: ElementType.Text }],
+    }));
   };
 
-  const removeElement = (pageIndex: number, elementIndex: number) => {
-    const updatedPages = [...pages];
-    updatedPages[pageIndex].elements.splice(elementIndex, 1);
-    setPages(updatedPages);
+  const removeElement = (elementIndex: number) => {
+    setPage((prevPage) => ({
+      ...prevPage,
+      elements: prevPage.elements.filter((_, index) => index !== elementIndex),
+    }));
   };
 
   return (
@@ -46,61 +48,52 @@ const FormBuilder: React.FC = () => {
       shadow={'md'}
       w={'container.md'}
     >
-      {pages.map((page, pageIndex) => (
-        <Box
-          key={pageIndex}
-          marginBottom="2rem"
-        >
-          <Flex marginBottom="1rem">
-            <Input
-              placeholder="Page Name"
-              value={page.name}
-              onChange={(e) => {
-                const updatedPages = [...pages];
-                updatedPages[pageIndex].name = e.target.value;
-                setPages(updatedPages);
-              }}
-            />
-          </Flex>
-          {page.elements.map((element: any, elementIndex: number) => (
-            <Box
-              key={elementIndex}
-              marginBottom="1rem"
-            >
-              <Flex>
-                <FormControl>
-                  <FormLabel>Element Name</FormLabel>
-                  <Input
-                    placeholder="Element Name"
-                    value={element.name}
-                    onChange={(e) => {
-                      const updatedPages = [...pages];
-                      updatedPages[pageIndex].elements[elementIndex].name =
-                        e.target.value;
-                      setPages(updatedPages);
-                    }}
-                  />
-                </FormControl>
-
-                <Button
-                  marginLeft="1rem"
-                  onClick={() => removeElement(pageIndex, elementIndex)}
-                >
-                  Remove Element
-                </Button>
-              </Flex>
-            </Box>
-          ))}
-
-          <Button
-            onClick={() =>
-              addElement(pageIndex, { name: '', type: ElementType.Text })
-            }
+      <Box marginBottom="2rem">
+        <Flex marginBottom="1rem">
+          <Input
+            placeholder="Page Name"
+            value={page.name}
+            onChange={(e) => {
+              setPage((prevPage) => ({ ...prevPage, name: e.target.value }));
+            }}
+          />
+        </Flex>
+        {page.elements.map((element: any, elementIndex: number) => (
+          <Box
+            key={elementIndex}
+            marginBottom="1rem"
           >
-            Add Element
-          </Button>
-        </Box>
-      ))}
+            <Flex>
+              <FormControl>
+                <FormLabel>Element Name</FormLabel>
+                <Input
+                  placeholder="Element Name"
+                  value={element.name}
+                  onChange={(e) => {
+                    setPage((prevPage) => ({
+                      ...prevPage,
+                      elements: prevPage.elements.map((el, index) =>
+                        index === elementIndex
+                          ? { ...el, name: e.target.value }
+                          : el
+                      ),
+                    }));
+                  }}
+                />
+              </FormControl>
+
+              <Button
+                marginLeft="1rem"
+                onClick={() => removeElement(elementIndex)}
+              >
+                Remove Element
+              </Button>
+            </Flex>
+          </Box>
+        ))}
+
+        <Button onClick={() => addElement()}>Add Element</Button>
+      </Box>
 
       {/* <pre>{JSON.stringify(pages, null, 2)}</pre> */}
     </Flex>
