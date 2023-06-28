@@ -1,6 +1,7 @@
 export enum ElementType {
-  Text = 'text',
+  ShortText = 'text',
   Checkbox = 'checkbox',
   Select = 'select',
   Radio = 'radio',
+  LongText = 'textArea',
 }
