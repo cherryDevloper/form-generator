@@ -13,9 +13,10 @@ interface Element {
 const FormGenratorPage = () => {
   const [elements, setElements] = useState<Element[]>([]);
   const handleAddElement = (type: ElementType) => {
+    const filteredElements = elements.filter((value) => value.type == type);
     const newElement: Element = {
       type,
-      name: '',
+      name: `${type} ${filteredElements.length + 1}`,
     };
     setElements((prevElements) => [...prevElements, newElement]);
   };

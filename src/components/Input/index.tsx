@@ -1,32 +1,15 @@
-import React from 'react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
-
-interface InputProps {
-  label: string;
-  name: string;
-  type: string;
-  register: UseFormRegister<FieldValues>;
-  required?: boolean;
-  error?: string;
-}
-
-const Input: React.FC<InputProps> = ({
-  label,
-  name,
-  type,
-  register,
-  required = false,
-  error = '',
-}) => {
+import { InputProps } from './Input.types';
+import styles from './Input.module.css';
+const { inputContainer } = styles;
+const Input = ({ onChange, value }: InputProps) => {
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
+    <div className={inputContainer}>
+      <span>Title</span>
       <input
-        id={name}
-        type={type}
-        {...register(name, { required })}
+        value={value}
+        onChange={onChange}
+        placeholder="Text"
       />
-      {error && <p>{error}</p>}
     </div>
   );
 };

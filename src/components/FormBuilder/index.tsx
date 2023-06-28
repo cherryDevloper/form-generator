@@ -1,34 +1,22 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-} from '@chakra-ui/react';
+import React from 'react';
+import { Box, Flex } from '@chakra-ui/react';
+import Input from '../Input';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { Element, FormBuilderProps, IFormValues } from './FormBuilder.types';
 import { ElementType } from '../../enums';
+import TextArea from '../TextArea';
 
-interface Element {
-  type: ElementType;
-  name: string;
-  choices?: string[];
-  requiredIf?: string;
-  visibleIf?: string;
-  editableIf?: string;
-}
-interface Page {
-  name: string;
-  elements: Element[];
-}
-interface FormBuilderProps {
-  elements: Element[];
-}
 const FormBuilder: React.FC<FormBuilderProps> = ({ elements }) => {
-  const [page, setPage] = useState<Page>({ name: '', elements: [] });
+  const { handleSubmit, control } = useForm<IFormValues>({
+    defaultValues: {
+      // name: '',
+    },
+  });
 
-  console.log('elements', elements);
-
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    console.log('data', data);
+    // alert(JSON.stringify(data));
+  };
   return (
     <Flex
       direction={'column'}
@@ -40,49 +28,41 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ elements }) => {
       w={'container.md'}
     >
       <Box marginBottom="2rem">
-        <Flex marginBottom="1rem">
-          <Input
-            placeholder="Page Name"
-            value={page.name}
-            onChange={(e) => {
-              setPage((prevPage) => ({ ...prevPage, name: e.target.value }));
-            }}
-          />
-        </Flex>
-        {elements.map((element: Element, elementIndex: number) => (
-          <Box
-            key={elementIndex}
-            marginBottom="1rem"
-          >
-            <Flex>
-              <FormControl>
-                <FormLabel>
-                  {element.name !== '' ? element.name : 'Label'}
-                </FormLabel>
-                {element.type === ElementType.ShortText ? (
-                  <Input
-                    placeholder="text"
-                    value={element.name}
-                    onChange={(e) => {
-                      const updatedElements = [...elements];
-                      updatedElements[elementIndex].name = e.target.value;
-                      // setElements(updatedElements);
-                    }}
-                  />
-                ) : null}
-              </FormControl>
-
-              {/* <Button
-                marginLeft="1rem"
-                // onClick={() => removeElement(elementIndex)}
-              >
-                Remove Element
-              </Button> */}
-            </Flex>
-          </Box>
-        ))}
+        <Flex marginBottom="1rem"></Flex>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {elements.map((element: Element, elementIndex: number) => (
+            <Box
+              key={elementIndex}
+              marginBottom="1rem"
+            >
+              <Flex>
+                <Controller
+                  name={element.name}
+                  control={control}
+                  render={({ field: { onChange, value } }: any) =>
+                    element.type === ElementType.LongText ? (
+                      <TextArea
+                        onChange={onChange}
+                        value={value}
+                      />
+                    ) : element.type === ElementType.ShortText ? (
+                      <Input
+                        onChange={onChange}
+                        value={value}
+                      />
+                    ) : element.type === ElementType.Checkbox ? (
+                      <>'checkbox'</>
+                    ) : (
+                      <> 'dropdown'</>
+                    )
+                  }
+                />
+              </Flex>
+            </Box>
+          ))}
+        </form>
       </Box>
-
+      <button onClick={handleSubmit(onSubmit)}>mm</button>
       {/* <pre>{JSON.stringify(pages, null, 2)}</pre> */}
     </Flex>
   );
