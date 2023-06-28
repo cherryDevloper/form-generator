@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormBuilder from '../components/FormBuilder';
 import { Flex, Text, VStack, Button, Box } from '@chakra-ui/react';
+import { ElementType } from '../enums';
+interface Element {
+  type: ElementType;
+  name: string;
+  choices?: string[];
+  requiredIf?: string;
+  visibleIf?: string;
+  editableIf?: string;
+}
 const FormGenratorPage = () => {
+  const [elements, setElements] = useState<Element[]>([]);
+  const handleAddElement = (type: ElementType) => {
+    const newElement: Element = {
+      type,
+      name: '',
+    };
+    setElements((prevElements) => [...prevElements, newElement]);
+  };
+
   const basicElements = [
     {
       id: 'input',
       label: ' Short Text',
+      type: ElementType.ShortText,
     },
     {
       id: 'textArea',
       label: 'Long Text',
+      type: ElementType.LongText,
     },
     {
       id: 'checkbox',
       label: 'Checkbox',
+      type: ElementType.Checkbox,
     },
     {
       id: 'select',
       label: 'Dropdown',
+      type: ElementType.Select,
     },
   ];
   return (
@@ -54,9 +76,14 @@ const FormGenratorPage = () => {
                 py={2}
                 px={4}
                 bg="blue.300"
-                rounded="md"
+                rounded="sm"
               >
-                <Button w={'100%'}>{element.label}</Button>
+                <Button
+                  w={'100%'}
+                  onClick={() => handleAddElement(element.type)}
+                >
+                  {element.label}
+                </Button>
               </Box>
             ))}
           </VStack>
@@ -70,7 +97,7 @@ const FormGenratorPage = () => {
         alignItems={'center'}
         p={'6'}
       >
-        <FormBuilder />
+        <FormBuilder elements={elements} />
       </Flex>
     </Flex>
   );
