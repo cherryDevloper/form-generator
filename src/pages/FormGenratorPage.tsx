@@ -144,28 +144,34 @@ const FormGenratorPage = () => {
           </VStack>
         </Box>
       </Flex>
-
-      <Flex
-        flexDirection="column"
+      <Box
         w={'100%'}
         bg={'gray.200'}
-        justifyItems={'center'}
-        alignItems={'center'}
-        p={'6'}
+        textAlign={'right'}
       >
-        <FormBuilder
-          elements={elements}
-          setElements={setElements}
-          handleSubmit={handleSubmit}
-          control={control}
-        />
         <Button
           onClick={saveForm}
-          size={'md'}
+          size={'lg'}
+          background={'green.300'}
+          margin={'1.2rem 3rem 0.1rem'}
         >
           {'Save'}
         </Button>
-      </Flex>
+        <Flex
+          flexDirection="column"
+          w={'100%'}
+          justifyItems={'center'}
+          alignItems={'center'}
+          p={'6'}
+        >
+          <FormBuilder
+            elements={elements}
+            setElements={setElements}
+            handleSubmit={handleSubmit}
+            control={control}
+          />
+        </Flex>
+      </Box>
     </Flex>
   );
 };
