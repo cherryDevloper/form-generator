@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import { CheckboxProps } from './Checkbox.type';
-import styles from './Checkbox.module.css';
 import { Element } from '../FormBuilder/FormBuilder.types';
-const { checkboxContainer } = styles;
+import { checkboxContainerStyles } from './checkboxStyles';
+import { css } from '@emotion/react';
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
   setElements,
@@ -59,33 +59,29 @@ const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   return (
-    <>
-      <div className={checkboxContainer}>
-        <input
-          value={label}
-          onChange={onChangeTitle}
-        />
-        {choices.map((item) => {
-          return (
-            <label>
-              <input
-                type="checkbox"
-                onChange={(value) =>
-                  onChangeCheckbox(value, item.name, 'value')
-                }
-                defaultChecked={item.value}
-              />
-              <input
-                type="text"
-                onChange={(e) => onChangeCheckbox(e, item.name, 'label')}
-                defaultValue={item.label}
-                style={{ border: 'none' }}
-              />
-            </label>
-          );
-        })}
-      </div>
-    </>
+    <div css={checkboxContainerStyles}>
+      <input
+        value={label}
+        onChange={onChangeTitle}
+      />
+      {choices.map((item) => {
+        return (
+          <label>
+            <input
+              type="checkbox"
+              onChange={(value) => onChangeCheckbox(value, item.name, 'value')}
+              defaultChecked={item.value}
+            />
+            <input
+              type="text"
+              onChange={(e) => onChangeCheckbox(e, item.name, 'label')}
+              defaultValue={item.label}
+              style={{ border: 'none' }}
+            />
+          </label>
+        );
+      })}
+    </div>
   );
 };
 
