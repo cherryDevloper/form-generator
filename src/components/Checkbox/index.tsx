@@ -3,6 +3,7 @@ import React, { ChangeEvent } from 'react';
 import { CheckboxProps } from './Checkbox.type';
 import { Element } from '../FormBuilder/FormBuilder.types';
 import { checkboxContainerStyles } from './checkboxStyles';
+import CustomTitle from '../CustomTitle';
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
@@ -61,7 +62,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div css={checkboxContainerStyles}>
-      <input
+      <CustomTitle
         value={label}
         onChange={onChangeTitle}
       />
