@@ -1,9 +1,5 @@
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
-
-type LayoutProps = {
-  children: ReactNode;
-};
+import { Flex, Text, Box } from '@chakra-ui/react';
+import { LayoutProps } from './Layout.types';
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -29,20 +25,6 @@ const Layout = ({ children }: LayoutProps) => {
               My Forms
             </Text>
           </Flex>
-
-          <VStack
-            spacing={4}
-            align="stretch"
-          >
-            <Box
-              py={2}
-              px={4}
-              bg="gray.300"
-              rounded="md"
-            >
-              sample
-            </Box>
-          </VStack>
         </Box>
       </Flex>
       <Flex
