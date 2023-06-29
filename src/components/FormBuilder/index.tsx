@@ -25,17 +25,19 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
       direction={'column'}
       bg={'white'}
       minH={'80vh'}
-      p={'10'}
+      p={'8'}
       rounded={'xl'}
       shadow={'md'}
       w={'container.md'}
     >
       <Box marginBottom="2rem">
         <Flex
-          marginBottom="1rem"
+          marginBottom="2rem"
           justifyContent={'center'}
           alignItems={'center'}
           textAlign={'center'}
+          borderBottom={'2px dashed blue'}
+          p={'2'}
         >
           <input
             value={elements?.[0]?.pageTitle ?? ''}
@@ -51,6 +53,10 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
               <Box
                 key={element?.name}
                 marginBottom="1rem"
+                border={'2px dashed #e3e1e1'}
+                p={4}
+                shadow={'sd'}
+                rounded={'xl'}
               >
                 <Flex>
                   <Controller

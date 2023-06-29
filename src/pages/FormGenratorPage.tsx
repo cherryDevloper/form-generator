@@ -22,7 +22,7 @@ const FormGenratorPage = () => {
   const forms = localData ? JSON.parse(localData) : [];
   // Initialize the elements state with a default value based on editingForm or a new element
   const [elements, setElements] = useState<Element[]>(
-    editingForm || [{ pageTitle: 'Title' }]
+    editingForm || [{ pageTitle: 'Title of the form' }]
   );
   // Initialize the useForm hook with explicit type annotations
   const { handleSubmit, control, getValues, setValue } = useForm<IFormValues>();
