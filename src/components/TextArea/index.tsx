@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { TextAreaProps } from './TextArea.types';
 import styles from './TextArea.module.css';
+import CustomTitle from '../CustomTitle';
 const { textAreaContainer } = styles;
 const TextArea: React.FC<TextAreaProps> = ({
   onChange,
@@ -28,7 +29,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <div className={textAreaContainer}>
-      <input
+      <CustomTitle
         value={label}
         onChange={onChangeTitle}
       />
