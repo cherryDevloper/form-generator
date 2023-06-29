@@ -160,6 +160,7 @@ const FormGenratorPage = () => {
           size={'lg'}
           background={'green.300'}
           margin={'1.2rem 3rem 0.1rem'}
+          color={'white'}
         >
           {'Save'}
         </Button>
