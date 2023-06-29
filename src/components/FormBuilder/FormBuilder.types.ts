@@ -14,6 +14,7 @@ export interface Element {
   value?: string;
   pageTitle?: string;
   options?: selectOptionType[];
+  radio?: any;
 }
 export interface FormBuilderProps {
   elements: Element[];

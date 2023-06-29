@@ -73,9 +73,17 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                           value={value}
                           setElements={setElements}
                         />
-                      ) : element?.type === ElementType.Checkbox &&
+                      ) : (element?.type === ElementType.Checkbox ||
+                          element?.type === ElementType.Radio) &&
                         element?.choices ? (
                         <Checkbox
+                          type={
+                            element?.type === ElementType.Checkbox
+                              ? 'checkbox'
+                              : element?.type === ElementType.Radio
+                              ? 'radio'
+                              : 'checkbox'
+                          }
                           onChange={onChange}
                           label={element?.label}
                           name={element?.name}

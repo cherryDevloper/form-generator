@@ -8,9 +8,11 @@ export interface CheckboxProps {
   setElements: Dispatch<React.SetStateAction<Element[]>>;
   onChange: () => void;
   choices: choicesType[];
+  type: 'checkbox' | 'radio';
 }
 export type choicesType = {
   value: boolean;
   label: string;
   name: string;
+  type: 'checkbox' | 'radio';
 };

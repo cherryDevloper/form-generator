@@ -30,17 +30,23 @@ const FormGenratorPage = () => {
   const handleAddElement = (type: ElementType) => {
     const filteredElements = elements.filter((value) => value.type === type);
 
-    const createCheckboxChoices = (): choicesType[] => [
-      { value: false, label: 'Checkbox 1', name: 'Checkbox 1' },
-      { value: false, label: 'Checkbox 2', name: 'Checkbox 2' },
-      { value: false, label: 'Checkbox 3', name: 'Checkbox 3' },
+    const createCheckboxChoices = (
+      type: 'radio' | 'checkbox'
+    ): choicesType[] => [
+      { value: false, label: 'Checkbox 1', name: 'Checkbox 1', type: type },
+      { value: false, label: 'Checkbox 2', name: 'Checkbox 2', type: type },
+      { value: false, label: 'Checkbox 3', name: 'Checkbox 3', type: type },
     ];
 
     const createNewElement = (): Element => {
       const name = `${type} ${filteredElements.length + 1}`;
       const label = type === ElementType.Checkbox ? `${type} ` : 'Title';
       const choices =
-        type === ElementType.Checkbox ? createCheckboxChoices() : undefined;
+        type === ElementType.Checkbox
+          ? createCheckboxChoices('checkbox')
+          : type === ElementType.Radio
+          ? createCheckboxChoices('radio')
+          : undefined;
       return { type, choices, name, label };
     };
 

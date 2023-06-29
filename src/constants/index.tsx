@@ -21,4 +21,9 @@ export const basicElements = [
     label: 'Dropdown',
     type: ElementType.Select,
   },
+  {
+    id: 'Radio',
+    label: 'Radio Box',
+    type: ElementType.Radio,
+  },
 ];

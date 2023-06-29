@@ -10,6 +10,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   setElements,
   name,
   choices,
+  type,
 }) => {
   const onChangeCheckbox = (
     e: ChangeEvent<HTMLInputElement>,
@@ -70,7 +71,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         return (
           <label>
             <input
-              type="checkbox"
+              type={type}
               onChange={(value) => onChangeCheckbox(value, item.name, 'value')}
               defaultChecked={item.value}
             />
