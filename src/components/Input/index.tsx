@@ -1,6 +1,7 @@
 import { InputProps } from './Input.types';
 import styles from './Input.module.css';
 import { ChangeEvent } from 'react';
+import CustomTitle from '../CustomTitle';
 const { inputContainer } = styles;
 
 const Input = ({ onChange, value, setElements, name, label }: InputProps) => {
@@ -14,12 +15,9 @@ const Input = ({ onChange, value, setElements, name, label }: InputProps) => {
 
   return (
     <div className={inputContainer}>
-      <input
-        type="text"
-        onChange={onChangeTitle}
+      <CustomTitle
+        onChange={(e) => onChangeTitle(e)}
         value={label}
-        defaultValue={'Title'}
-        style={{ border: 'none' }}
       />
       <input
         value={value}
