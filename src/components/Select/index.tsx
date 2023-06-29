@@ -3,6 +3,7 @@ import { SelectProps } from './Select.types';
 import { ChangeEvent, useState } from 'react';
 import { Element } from '../FormBuilder/FormBuilder.types';
 import { TriangleDownIcon } from '@chakra-ui/icons';
+import CustomTitle from '../CustomTitle';
 
 const SelectComponent = ({
   label,
@@ -29,7 +30,7 @@ const SelectComponent = ({
   };
   return (
     <Box>
-      <input
+      <CustomTitle
         value={label}
         onChange={(e) => onChangeTitle(e)}
       />
