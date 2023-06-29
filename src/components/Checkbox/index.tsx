@@ -3,6 +3,7 @@ import React, { ChangeEvent } from 'react';
 import { CheckboxProps } from './Checkbox.type';
 import { Element } from '../FormBuilder/FormBuilder.types';
 import { checkboxContainerStyles } from './checkboxStyles';
+
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
   setElements,

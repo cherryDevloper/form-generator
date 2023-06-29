@@ -1,6 +1,7 @@
 import { Control, UseFormHandleSubmit } from 'react-hook-form';
 import { ElementType } from '../../enums';
 import { choicesType } from '../Checkbox/Checkbox.type';
+import { selectOptionType } from '../Select/Select.types';
 
 export interface Element {
   type: ElementType;
@@ -12,6 +13,7 @@ export interface Element {
   label?: string;
   value?: string;
   pageTitle?: string;
+  options?: selectOptionType[];
 }
 export interface FormBuilderProps {
   elements: Element[];

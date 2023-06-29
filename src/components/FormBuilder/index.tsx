@@ -6,6 +6,7 @@ import { ElementType } from '../../enums';
 import Input from '../Input';
 import TextArea from '../TextArea';
 import Checkbox from '../Checkbox';
+import SelectComponent from '../Select';
 
 const FormBuilder: React.FC<FormBuilderProps> = ({
   elements,
@@ -80,6 +81,14 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                           name={element?.name}
                           choices={element?.choices}
                           setElements={setElements}
+                        />
+                      ) : element?.type === ElementType.Select ? (
+                        <SelectComponent
+                          onChange={onChange}
+                          label={element.label}
+                          name={element?.name}
+                          setElements={setElements}
+                          value={value}
                         />
                       ) : (
                         <></>

@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { basicElements } from '../constants';
 import { choicesType } from '../components/Checkbox/Checkbox.type';
-
+import { selectOptionType } from '../components/Select/Select.types';
 const FormGenratorPage = () => {
   const navigate = useNavigate();
   // Extract the required properties from useLocation() using destructuring
@@ -41,7 +41,6 @@ const FormGenratorPage = () => {
       const label = type === ElementType.Checkbox ? `${type} ` : 'Title';
       const choices =
         type === ElementType.Checkbox ? createCheckboxChoices() : undefined;
-
       return { type, choices, name, label };
     };
 
@@ -63,7 +62,8 @@ const FormGenratorPage = () => {
     const updatedElements = elements.map((item) => {
       if (
         item.type === ElementType.LongText ||
-        item.type === ElementType.ShortText
+        item.type === ElementType.ShortText ||
+        item.type === ElementType.Select
       ) {
         return {
           ...item,
@@ -85,10 +85,7 @@ const FormGenratorPage = () => {
 
   const setInputsValue = () => {
     for (let element of elements) {
-      if (
-        element.type === ElementType.ShortText ||
-        element.type === ElementType.LongText
-      ) {
+      if (element.type !== ElementType.Checkbox) {
         setValue(element?.name, element?.value);
       }
     }
@@ -147,6 +144,7 @@ const FormGenratorPage = () => {
           </VStack>
         </Box>
       </Flex>
+
       <Flex
         flexDirection="column"
         w={'100%'}
@@ -162,8 +160,8 @@ const FormGenratorPage = () => {
           control={control}
         />
         <Button
-          w={'100%'}
           onClick={saveForm}
+          size={'md'}
         >
           {'Save'}
         </Button>
