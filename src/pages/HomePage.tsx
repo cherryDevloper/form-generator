@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ListItem from '../components/ListItem';
 import { Form } from './types/Home.types';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 const HomePage = () => {
   const [forms, setForms] = useState<Form[]>([]);
@@ -20,6 +21,24 @@ const HomePage = () => {
 
   return (
     <Layout>
+      <Button
+        colorScheme="teal"
+        variant="solid"
+        onClick={() => {
+          navigate('/form-generator', {
+            state: {
+              forms,
+            },
+          });
+        }}
+        mb={'2'}
+        w={150}
+        display={'flex'}
+        justifyContent={'space-between'}
+        textAlign={'left'}
+      >
+        Create Form <ArrowForwardIcon />
+      </Button>
       {forms?.length > 0 &&
         forms.map((form: any, index: number) => (
           <ListItem
@@ -34,19 +53,6 @@ const HomePage = () => {
             }}
           />
         ))}
-      <Button
-        colorScheme="teal"
-        variant="solid"
-        onClick={() => {
-          navigate('/form-generator', {
-            state: {
-              forms,
-            },
-          });
-        }}
-      >
-        Create Form
-      </Button>
     </Layout>
   );
 };
