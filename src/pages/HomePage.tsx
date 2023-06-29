@@ -31,11 +31,10 @@ const HomePage = () => {
             },
           });
         }}
-        mb={'2'}
+        mb={'4'}
         w={150}
         display={'flex'}
         justifyContent={'space-between'}
-        textAlign={'left'}
       >
         Create Form <ArrowForwardIcon />
       </Button>

@@ -1,3 +1,4 @@
+import { EditIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 type ListItemProps = {
@@ -9,17 +10,19 @@ const ListItem: React.FC<ListItemProps> = ({ text, onClick }) => {
   return (
     <Box
       as="div"
-      p={2}
+      p={6}
       shadow={'md'}
       w={'100%'}
       sx={{ textDecoration: 'none' }}
       rounded={'md'}
-      bg={'blue.100'}
-      mb={2}
+      bg={'white.50'}
+      mb={8}
+      cursor={'pointer'}
       onClick={onClick}
     >
-      <Flex>
-        <Text>{text}</Text>
+      <Flex justifyContent={'space-between'}>
+        <Text fontSize={'xl'}>{text}</Text>
+        <EditIcon color={'blue.400'} />
       </Flex>
     </Box>
   );

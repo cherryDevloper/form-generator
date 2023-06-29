@@ -1,4 +1,4 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Text, Box, VStack } from '@chakra-ui/react';
 import { LayoutProps } from './Layout.types';
 
 const Layout = ({ children }: LayoutProps) => {
@@ -10,8 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
       >
         <Box
           w="250px"
-          bg="gray.200"
-          p={4}
+          border="1px solid #90cdf4"
         >
           <Flex
             alignItems="center"
@@ -20,7 +19,9 @@ const Layout = ({ children }: LayoutProps) => {
             <Text
               fontSize="xl"
               fontWeight="bold"
-              ml={2}
+              bg="blue.200"
+              w={'full'}
+              p={3}
             >
               My Forms
             </Text>
@@ -34,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Box
           as="header"
           p={4}
-          bg="blue.200"
+          bg="blue.100"
         >
           Form Generator
         </Box>
