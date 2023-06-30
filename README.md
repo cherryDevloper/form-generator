@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+Form Generator 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a readme file for the project, providing an overview of the project requirements, functionality, and how to set it up.
 
-## Available Scripts
+Requirements
+The following technologies and libraries are required for this project:
+-React Hook Forms: Used for form handling and validation. (https://react-hook-form.com/)
+-React: Used for creating reusable components. Choose either React  based on your preference. (https://reactjs.org/ )
+-TypeScript: Used for fully typed code. (https://www.typescriptlang.org/)
+- Used for styling components. (https://emotion.sh/)
+-Chakra UI: (https://chakra-ui.com/)
 
-In the project directory, you can run:
+Functionality
 
-### `npm start`
+The project aims to provide a form generator with the following functionality:
+- Users can create pages with a name and a list of elements.
+- Different input types are supported, defined in the ElementType enum. Supported types include text, checkbox, select, and radio.
+- For select and radio input types, users should be able to provide a list of choices.
+- Conditional logic should be implemented for form elements based on the requiredIf, visibleIf, and editableIf properties of elements.
+- The generated forms should be rendered and interactable.
+- Persistence should be implemented by using local storage to save and load the generated form
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ Setup
+Follow the steps below to set up and run the project:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Clone the repository or download the project files.
+Install the required dependencies by running the command: npm install or yarn install.
+Configure and set up the necessary libraries and tools as mentioned in the Requirements section.
+Start the development server by running the command: npm start or yarn start.
+Access the project in your web browser at the provided local development server URL.
+Ensure that you have the appropriate environment set up and configured to run the project successfully.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
