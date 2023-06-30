@@ -4,11 +4,11 @@ This is a readme file for the project, providing an overview of the project requ
 
 Requirements
 The following technologies and libraries are required for this project:
--React Hook Forms: Used for form handling and validation. (https://react-hook-form.com/)
--React: Used for creating reusable components. Choose either React  based on your preference. (https://reactjs.org/ )
--TypeScript: Used for fully typed code. (https://www.typescriptlang.org/)
+- React Hook Forms: Used for form handling and validation. (https://react-hook-form.com/)
+- React: Used for creating reusable components. Choose either React  based on your preference. (https://reactjs.org/ )
+- TypeScript: Used for fully typed code. (https://www.typescriptlang.org/)
 - Used for styling components. (https://emotion.sh/)
--Chakra UI: (https://chakra-ui.com/)
+- Chakra UI: (https://chakra-ui.com/)
 
 Functionality
 
