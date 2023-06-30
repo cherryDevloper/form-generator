@@ -63,6 +63,10 @@ const FormGenratorPage = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    console.log('elements', elements);
+  }, [elements]);
+
   const saveForm = () => {
     // Map over the elements array and update the values of LongText and ShortText types
     const updatedElements = elements.map((item) => {

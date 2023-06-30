@@ -1,23 +1,51 @@
-import React, { ChangeEvent } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import React, { ChangeEvent, useState } from 'react';
+import { Box, Flex, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
-import { Element, FormBuilderProps } from './FormBuilder.types';
+import {
+  Element,
+  FormBuilderProps,
+  switchedValueType,
+} from './FormBuilder.types';
 import { ElementType } from '../../enums';
 import Input from '../Input';
 import TextArea from '../TextArea';
 import Checkbox from '../Checkbox';
 import SelectComponent from '../Select';
+import CustomDrawer from '../Drawer';
+import { SettingsIcon } from '@chakra-ui/icons';
 
 const FormBuilder: React.FC<FormBuilderProps> = ({
   elements,
   setElements,
   control,
 }) => {
+  const [customizedElement, setCustomizedElement] = useState<
+    Element | undefined
+  >(undefined);
+
   const onChangePageTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setElements((prev) => [
       { pageTitle: e.target.value } as Element,
       ...prev.slice(1),
     ]);
+  };
+
+  const onChangeSwitch = (
+    e: ChangeEvent<HTMLInputElement>,
+    type: switchedValueType
+  ) => {
+    setElements((prev: Element[]) =>
+      prev.map((item) => {
+        if (item?.name === customizedElement?.name) {
+          return {
+            ...item,
+            [type]: e.target.checked,
+          };
+        } else {
+          return item;
+        }
+      })
+    );
   };
 
   return (
@@ -58,7 +86,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                 shadow={'sd'}
                 rounded={'xl'}
               >
-                <Flex>
+                <Flex justifyContent={'space-between'}>
                   <Controller
                     name={element?.name}
                     control={control}
@@ -109,11 +137,39 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                       )
                     }
                   />
+                  <SettingsIcon
+                    onClick={() => setCustomizedElement(element)}
+                    cursor={'pointer'}
+                  />
                 </Flex>
               </Box>
             );
           })}
         </form>
+        {customizedElement !== undefined && (
+          <CustomDrawer
+            isOpen={customizedElement !== undefined}
+            onClose={() => setCustomizedElement(undefined)}
+          >
+            <FormControl>
+              <FormLabel htmlFor="isRequired">isRequired:</FormLabel>
+
+              <Switch
+                onChange={(e) => onChangeSwitch(e, 'isRequired')}
+                id="isRequired"
+                checked={Boolean(customizedElement?.isRequired)}
+                defaultChecked={Boolean(customizedElement?.isRequired)}
+              />
+              <FormLabel htmlFor="isReadOnly">isReadOnly:</FormLabel>
+              <Switch
+                onChange={(e) => onChangeSwitch(e, 'isReadOnly')}
+                id="isReadOnly"
+                checked={Boolean(customizedElement?.isReadOnly)}
+                defaultChecked={Boolean(customizedElement?.isReadOnly)}
+              />
+            </FormControl>
+          </CustomDrawer>
+        )}
       </Box>
     </Flex>
   );

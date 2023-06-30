@@ -7,8 +7,8 @@ export interface Element {
   type: ElementType;
   name: string;
   choices?: choicesType[];
-  requiredIf?: string;
-  visibleIf?: string;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
   editableIf?: string;
   label?: string;
   value?: string;
@@ -16,6 +16,7 @@ export interface Element {
   options?: selectOptionType[];
   radio?: any;
 }
+
 export interface FormBuilderProps {
   elements: Element[];
   setElements: React.Dispatch<React.SetStateAction<Element[]>>;
@@ -25,3 +26,4 @@ export interface FormBuilderProps {
 export type IFormValues = {
   [key: string]: any;
 };
+export type switchedValueType = 'isRequired' | 'isReadOnly' | '';
