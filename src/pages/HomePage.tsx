@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Text } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ListItem from '../components/ListItem';
