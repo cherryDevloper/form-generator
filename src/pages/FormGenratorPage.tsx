@@ -10,10 +10,13 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { basicElements } from '../constants';
 import { choicesType } from '../components/Checkbox/Checkbox.type';
-import { selectOptionType } from '../components/Select/Select.types';
+import { useGetData, useSaveData } from '../api/dataApi';
+
 const FormGenratorPage = () => {
+  // const { data, isLoading, error } = useGetData();
+  const saveDataMutation = useSaveData();
+
   const navigate = useNavigate();
-  // Extract the required properties from useLocation() using destructuring
   const {
     state: { form: editingForm, editingIndex },
   } = useLocation();
@@ -47,6 +50,7 @@ const FormGenratorPage = () => {
           : type === ElementType.Radio
           ? createCheckboxChoices('radio')
           : undefined;
+      //  saveDataMutation.mutate([...elements, newElement]);
       return { type, choices, name, label };
     };
 
@@ -133,23 +137,21 @@ const FormGenratorPage = () => {
 
           <VStack
             spacing={4}
-            align="stretch"
+            align="flex-start"
           >
             {basicElements.map((element) => (
-              <Box
+              <Button
+                p={4}
+                size="md"
+                height={'8vh'}
+                rounded="md"
                 key={element.id}
-                py={2}
-                px={4}
-                bg="blue.300"
-                rounded="sm"
+                w={'100%'}
+                shadow="md"
+                onClick={() => handleAddElement(element.type)}
               >
-                <Button
-                  w={'100%'}
-                  onClick={() => handleAddElement(element.type)}
-                >
-                  {element.label}
-                </Button>
-              </Box>
+                {element.label}
+              </Button>
             ))}
           </VStack>
         </Box>
