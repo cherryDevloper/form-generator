@@ -2,7 +2,6 @@
 import React, { ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
-import { CloseIcon } from '@chakra-ui/icons';
 
 // Animation variants for open and closed states
 const drawerVariants = {
@@ -25,7 +24,7 @@ const drawerContainerStyles = css`
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   overflow-x: hidden;
-  width: 220px;
+  width: 250px;
 `;
 
 const drawerContentStyles = css`

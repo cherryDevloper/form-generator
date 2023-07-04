@@ -10,12 +10,8 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { basicElements } from '../constants';
 import { choicesType } from '../components/Checkbox/Checkbox.type';
-import { useGetData, useSaveData } from '../api/dataApi';
 
 const FormGenratorPage = () => {
-  // const { data, isLoading, error } = useGetData();
-  const saveDataMutation = useSaveData();
-
   const navigate = useNavigate();
   const {
     state: { form: editingForm, editingIndex },
@@ -36,9 +32,9 @@ const FormGenratorPage = () => {
     const createCheckboxChoices = (
       type: 'radio' | 'checkbox'
     ): choicesType[] => [
-      { value: false, label: 'Checkbox 1', name: 'Checkbox 1', type: type },
-      { value: false, label: 'Checkbox 2', name: 'Checkbox 2', type: type },
-      { value: false, label: 'Checkbox 3', name: 'Checkbox 3', type: type },
+      { value: false, label: `${type} 1`, name: `${type} 1`, type: type },
+      { value: false, label: `${type} 2`, name: `${type} 2`, type: type },
+      { value: false, label: `${type} 3`, name: `${type} 3`, type: type },
     ];
 
     const createNewElement = (): Element => {
@@ -66,10 +62,6 @@ const FormGenratorPage = () => {
     localStorage.setItem('forms', savedElements);
     navigate('/');
   };
-
-  useEffect(() => {
-    console.log('elements', elements);
-  }, [elements]);
 
   const saveForm = () => {
     // Map over the elements array and update the values of LongText and ShortText types
