@@ -6,6 +6,7 @@ import {
   FormBuilderProps,
   switchedValueType,
 } from './FormBuilder.types';
+import { motion } from 'framer-motion';
 import { ElementType } from '../../enums';
 import Input from '../Input';
 import TextArea from '../TextArea';
@@ -78,71 +79,77 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
             if ('pageTitle' in element) return null;
 
             return (
-              <Box
-                key={element?.name}
-                marginBottom="1rem"
-                border={'2px dashed #e3e1e1'}
-                p={4}
-                shadow={'sd'}
-                rounded={'xl'}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <Flex justifyContent={'space-between'}>
-                  <Controller
-                    name={element?.name}
-                    control={control}
-                    render={({ field: { onChange, value } }: any) =>
-                      element?.type === ElementType.LongText ? (
-                        <TextArea
-                          onChange={onChange}
-                          setElements={setElements}
-                          label={element?.label}
-                          name={element?.name}
-                          value={value}
-                        />
-                      ) : element?.type === ElementType.ShortText ? (
-                        <Input
-                          onChange={onChange}
-                          label={element?.label}
-                          name={element?.name}
-                          value={value}
-                          setElements={setElements}
-                        />
-                      ) : (element?.type === ElementType.Checkbox ||
-                          element?.type === ElementType.Radio) &&
-                        element?.choices ? (
-                        <Checkbox
-                          type={
-                            element?.type === ElementType.Checkbox
-                              ? 'checkbox'
-                              : element?.type === ElementType.Radio
-                              ? 'radio'
-                              : 'checkbox'
-                          }
-                          onChange={onChange}
-                          label={element?.label}
-                          name={element?.name}
-                          choices={element?.choices}
-                          setElements={setElements}
-                        />
-                      ) : element?.type === ElementType.Select ? (
-                        <SelectComponent
-                          onChange={onChange}
-                          label={element.label}
-                          name={element?.name}
-                          setElements={setElements}
-                          value={value}
-                        />
-                      ) : (
-                        <></>
-                      )
-                    }
-                  />
-                  <SettingsIcon
-                    onClick={() => setCustomizedElement(element)}
-                    cursor={'pointer'}
-                  />
-                </Flex>
-              </Box>
+                <Box
+                  key={element?.name}
+                  marginBottom="1rem"
+                  border={'2px dashed #e3e1e1'}
+                  p={4}
+                  shadow={'sd'}
+                  rounded={'xl'}
+                >
+                  <Flex justifyContent={'space-between'}>
+                    <Controller
+                      name={element?.name}
+                      control={control}
+                      render={({ field: { onChange, value } }: any) =>
+                        element?.type === ElementType.LongText ? (
+                          <TextArea
+                            onChange={onChange}
+                            setElements={setElements}
+                            label={element?.label}
+                            name={element?.name}
+                            value={value}
+                          />
+                        ) : element?.type === ElementType.ShortText ? (
+                          <Input
+                            onChange={onChange}
+                            label={element?.label}
+                            name={element?.name}
+                            value={value}
+                            setElements={setElements}
+                          />
+                        ) : (element?.type === ElementType.Checkbox ||
+                            element?.type === ElementType.Radio) &&
+                          element?.choices ? (
+                          <Checkbox
+                            type={
+                              element?.type === ElementType.Checkbox
+                                ? 'checkbox'
+                                : element?.type === ElementType.Radio
+                                ? 'radio'
+                                : 'checkbox'
+                            }
+                            onChange={onChange}
+                            label={element?.label}
+                            name={element?.name}
+                            choices={element?.choices}
+                            setElements={setElements}
+                          />
+                        ) : element?.type === ElementType.Select ? (
+                          <SelectComponent
+                            onChange={onChange}
+                            label={element.label}
+                            name={element?.name}
+                            setElements={setElements}
+                            value={value}
+                          />
+                        ) : (
+                          <></>
+                        )
+                      }
+                    />
+                    <SettingsIcon
+                      onClick={() => setCustomizedElement(element)}
+                      cursor={'pointer'}
+                    />
+                  </Flex>
+                </Box>
+              </motion.div>
             );
           })}
         </form>
