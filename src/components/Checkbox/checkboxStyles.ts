@@ -20,3 +20,9 @@ export const checkboxContainerStyles = css`
     flex-direction: column;
   }
 `;
+export const required = css`
+  :after {
+    content: ' *field is required';
+    color: red;
+  }
+`;

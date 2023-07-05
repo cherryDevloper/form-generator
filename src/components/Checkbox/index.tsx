@@ -2,7 +2,7 @@
 import React, { ChangeEvent } from 'react';
 import { CheckboxProps } from './Checkbox.type';
 import { Element } from '../FormBuilder/FormBuilder.types';
-import { checkboxContainerStyles } from './checkboxStyles';
+import { checkboxContainerStyles, required } from './checkboxStyles';
 import CustomTitle from '../CustomTitle';
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -11,6 +11,9 @@ const Checkbox: React.FC<CheckboxProps> = ({
   name,
   choices,
   type,
+  editable = true,
+  isVisible = true,
+  isRequired = false,
 }) => {
   const onChangeCheckbox = (
     e: ChangeEvent<HTMLInputElement>,
@@ -62,29 +65,37 @@ const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   return (
-    <div css={checkboxContainerStyles}>
-      <CustomTitle
-        value={label}
-        onChange={onChangeTitle}
-      />
-      {choices.map((item) => {
-        return (
-          <label>
-            <input
-              type={type}
-              onChange={(value) => onChangeCheckbox(value, item.name, 'value')}
-              defaultChecked={item.value}
-            />
-            <input
-              type="text"
-              onChange={(e) => onChangeCheckbox(e, item.name, 'label')}
-              defaultValue={item.label}
-              style={{ border: 'none' }}
-            />
-          </label>
-        );
-      })}
-    </div>
+    <>
+      {isVisible && (
+        <div css={checkboxContainerStyles}>
+          <CustomTitle
+            value={label}
+            onChange={onChangeTitle}
+          />
+          {choices.map((item) => {
+            return (
+              <label>
+                <input
+                  type={type}
+                  onChange={(value) =>
+                    onChangeCheckbox(value, item.name, 'value')
+                  }
+                  defaultChecked={item.value}
+                  readOnly={!editable}
+                />
+                <input
+                  type="text"
+                  onChange={(e) => onChangeCheckbox(e, item.name, 'label')}
+                  defaultValue={item.label}
+                  style={{ border: 'none' }}
+                />
+              </label>
+            );
+          })}
+          {isRequired && <p css={required}></p>}
+        </div>
+      )}
+    </>
   );
 };
 

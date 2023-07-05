@@ -46,7 +46,6 @@ const FormGenratorPage = () => {
           : type === ElementType.Radio
           ? createCheckboxChoices('radio')
           : undefined;
-      //  saveDataMutation.mutate([...elements, newElement]);
       return { type, choices, name, label };
     };
 
@@ -174,6 +173,7 @@ const FormGenratorPage = () => {
             setElements={setElements}
             handleSubmit={handleSubmit}
             control={control}
+            getValues={getValues}
           />
         </Flex>
       </Box>

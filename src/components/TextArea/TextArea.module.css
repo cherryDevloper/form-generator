@@ -10,3 +10,13 @@
   flex-direction: column;
   width: 100%;
 }
+.conditionalInput {
+  padding: 0.7rem;
+  width: 100%;
+  border: 1px solid rgb(169, 168, 168);
+  border-radius: 10px;
+}
+.required:after {
+  content: ' *field is required';
+  color: red;
+}

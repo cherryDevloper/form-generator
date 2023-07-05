@@ -1,11 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Box, Flex, FormControl, FormLabel, Switch } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormLabel } from '@chakra-ui/react';
 import { Controller } from 'react-hook-form';
-import {
-  Element,
-  FormBuilderProps,
-  switchedValueType,
-} from './FormBuilder.types';
+import { Element, FormBuilderProps } from './FormBuilder.types';
 import { motion } from 'framer-motion';
 import { ElementType } from '../../enums';
 import Input from '../Input';
@@ -14,15 +10,25 @@ import Checkbox from '../Checkbox';
 import SelectComponent from '../Select';
 import CustomDrawer from '../Drawer';
 import { SettingsIcon } from '@chakra-ui/icons';
+import styles from './FormBuilder.module.css';
+
+const { conditionalInput } = styles;
 
 const FormBuilder: React.FC<FormBuilderProps> = ({
   elements,
   setElements,
   control,
+  getValues,
 }) => {
   const [customizedElement, setCustomizedElement] = useState<
     Element | undefined
   >(undefined);
+
+  const {
+    editableIf: editableValue,
+    visibleIf: visibleValue,
+    requiredIf: requiredValue,
+  } = elements.find((item) => item.name === customizedElement?.name) || {};
 
   const onChangePageTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setElements((prev) => [
@@ -31,22 +37,67 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
     ]);
   };
 
-  const onChangeSwitch = (
-    e: ChangeEvent<HTMLInputElement>,
-    type: switchedValueType
+  const onChangeIfStatement = (
+    type: 'requiredIf' | 'visibleIf' | 'editableIf',
+    value: any
   ) => {
-    setElements((prev: Element[]) =>
-      prev.map((item) => {
-        if (item?.name === customizedElement?.name) {
+    setElements((prev) => {
+      const newElements = prev.map((item) => {
+        if (item.name === customizedElement?.name) {
           return {
             ...item,
-            [type]: e.target.checked,
+            [type]: value,
           };
         } else {
           return item;
         }
-      })
-    );
+      });
+      return newElements;
+    });
+  };
+
+  const checkCondition = (ifStatement: string) => {
+    if (!ifStatement) return true;
+    const isIfCorrect = ifStatement.split('==').length === 2;
+    if (!isIfCorrect) return true;
+    if (ifStatement.split('==')[0] === '' || ifStatement.split('==')[0] === '')
+      return false;
+
+    const element = ifStatement.split('==')[0];
+    const value = ifStatement
+      .split('==')[1]
+      ?.replace(' ', '')
+      .replace('"', '')
+      .replace("'", '');
+
+    const isConditionCorrect = elements.some((item) => {
+      if (item.name === element && getValues(item?.name) === value) {
+        return true;
+      }
+    });
+    return isConditionCorrect;
+  };
+
+  const checkRequiredCondition = (ifStatement: any) => {
+    if (!ifStatement) return false;
+    const isIfCorrect = ifStatement.split('==').length === 2;
+    if (!isIfCorrect) return false;
+    if (ifStatement.split('==')[0] === '' || ifStatement.split('==')[0] === '')
+      return false;
+
+    const element = ifStatement.split('==')[0];
+    const value = ifStatement
+      .split('==')[1]
+      ?.replace(' ', '')
+      .replace('"', '')
+      .replace("'", '');
+
+    const isConditionCorrect = elements.some((item) => {
+      if (item.name === element && getValues(item?.name) === value) {
+        return true;
+      }
+    });
+    return isConditionCorrect;
   };
 
   return (
@@ -104,6 +155,11 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                             label={element?.label}
                             name={element?.name}
                             value={value}
+                            editable={checkCondition(element.editableIf)}
+                            isRequired={checkRequiredCondition(
+                              element.requiredIf
+                            )}
+                            isVisible={checkCondition(element.visibleIf)}
                           />
                         ) : element?.type === ElementType.ShortText ? (
                           <Input
@@ -112,6 +168,11 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                             name={element?.name}
                             value={value}
                             setElements={setElements}
+                            editable={checkCondition(element.editableIf)}
+                            isRequired={checkRequiredCondition(
+                              element.requiredIf
+                            )}
+                            isVisible={checkCondition(element.visibleIf)}
                           />
                         ) : (element?.type === ElementType.Checkbox ||
                             element?.type === ElementType.Radio) &&
@@ -129,6 +190,11 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                             name={element?.name}
                             choices={element?.choices}
                             setElements={setElements}
+                            editable={checkCondition(element.editableIf)}
+                            isRequired={checkRequiredCondition(
+                              element.requiredIf
+                            )}
+                            isVisible={checkCondition(element.visibleIf)}
                           />
                         ) : element?.type === ElementType.Select ? (
                           <SelectComponent
@@ -137,6 +203,11 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
                             name={element?.name}
                             setElements={setElements}
                             value={value}
+                            editable={checkCondition(element.editableIf)}
+                            isRequired={checkRequiredCondition(
+                              element.requiredIf
+                            )}
+                            isVisible={checkCondition(element.visibleIf)}
                           />
                         ) : (
                           <></>
@@ -159,20 +230,30 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
             onClose={() => setCustomizedElement(undefined)}
           >
             <FormControl>
-              <FormLabel htmlFor="isRequired">isRequired:</FormLabel>
-
-              <Switch
-                onChange={(e) => onChangeSwitch(e, 'isRequired')}
-                id="isRequired"
-                checked={Boolean(customizedElement?.isRequired)}
-                defaultChecked={Boolean(customizedElement?.isRequired)}
+              <FormLabel htmlFor="requiredIf">Required if:</FormLabel>
+              <input
+                id="txt1"
+                value={requiredValue}
+                onChange={(e) =>
+                  onChangeIfStatement('requiredIf', e.target.value)
+                }
+                className={conditionalInput}
               />
-              <FormLabel htmlFor="isReadOnly">isReadOnly:</FormLabel>
-              <Switch
-                onChange={(e) => onChangeSwitch(e, 'isReadOnly')}
-                id="isReadOnly"
-                checked={Boolean(customizedElement?.isReadOnly)}
-                defaultChecked={Boolean(customizedElement?.isReadOnly)}
+              <FormLabel htmlFor="visibleIf">visible if:</FormLabel>
+              <input
+                value={visibleValue}
+                onChange={(e) =>
+                  onChangeIfStatement('visibleIf', e.target.value)
+                }
+                className={conditionalInput}
+              />
+              <FormLabel htmlFor="editableIf">editable if:</FormLabel>
+              <input
+                value={editableValue}
+                onChange={(e) =>
+                  onChangeIfStatement('editableIf', e.target.value)
+                }
+                className={conditionalInput}
               />
             </FormControl>
           </CustomDrawer>

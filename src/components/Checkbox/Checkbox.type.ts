@@ -9,6 +9,9 @@ export interface CheckboxProps {
   onChange: () => void;
   choices: choicesType[];
   type: 'checkbox' | 'radio';
+  editable: any;
+  isVisible: any;
+  isRequired: any;
 }
 export type choicesType = {
   value: boolean;

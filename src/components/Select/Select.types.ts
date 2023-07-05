@@ -13,4 +13,7 @@ export interface SelectProps {
   value?: string;
   setElements: Dispatch<React.SetStateAction<Element[]>>;
   onChange: () => void;
+  editable: any;
+  isVisible: any;
+  isRequired: any;
 }

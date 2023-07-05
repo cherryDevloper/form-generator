@@ -10,3 +10,7 @@
   flex-direction: column;
   width: 100%;
 }
+.required:after {
+  content: ' *field is required';
+  color: red;
+}

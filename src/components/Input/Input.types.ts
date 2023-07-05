@@ -5,4 +5,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
   label?: string;
   setElements: Dispatch<React.SetStateAction<Element[]>>;
+  editable: any;
+  isVisible: any;
+  isRequired: any;
 }

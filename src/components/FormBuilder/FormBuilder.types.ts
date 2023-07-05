@@ -7,14 +7,17 @@ export interface Element {
   type: ElementType;
   name: string;
   choices?: choicesType[];
-  isRequired?: boolean;
-  isReadOnly?: boolean;
-  editableIf?: string;
+  // isRequired?: boolean;
+  // isReadOnly?: boolean;
+  editableIf?: any;
+  requiredIf?: any;
+  visibleIf?: any;
   label?: string;
   value?: string;
   pageTitle?: string;
   options?: selectOptionType[];
   radio?: any;
+  getValues?: any;
 }
 
 export interface FormBuilderProps {
@@ -22,6 +25,7 @@ export interface FormBuilderProps {
   setElements: React.Dispatch<React.SetStateAction<Element[]>>;
   handleSubmit?: UseFormHandleSubmit<IFormValues, undefined>;
   control: Control<IFormValues, any>;
+  getValues?: any;
 }
 export type IFormValues = {
   [key: string]: any;

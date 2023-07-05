@@ -9,4 +9,7 @@ export type TextAreaProps = {
   setElements: Dispatch<React.SetStateAction<Element[]>>;
   label?: string;
   name?: string;
+  editable: any;
+  isVisible: any;
+  isRequired: any;
 };
